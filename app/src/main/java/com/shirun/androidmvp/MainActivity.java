@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
         private Class<? extends Fragment> fragmentClass;
         private Bundle bundle;
 
-        public TabItem(int imageNormal, int title, int imagePress, Class<? extends Fragment> fragmentClass) {
+        public TabItem(int imageNormal, int imagePress, int title, Class<? extends Fragment> fragmentClass) {
             this.imageNormal = imageNormal;
             this.title = title;
             this.imagePress = imagePress;
