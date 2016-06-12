@@ -3,16 +3,15 @@ package com.shirun.androidmvp.mvp.view.impl;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
+import com.shirun.androidmvp.mvp.view.MvpView;
 
 /**
  * Created by ying on 2016/6/2.
  */
-public abstract class MvpBaseFragment<M,P extends MvpPresenter> extends Fragment implements MvpImplView<M> {
+public abstract class MvpBaseFragment<M,P extends MvpPresenter> extends Fragment implements MvpView {
 
     private P presenter;
 

@@ -1,19 +1,16 @@
 package com.shirun.androidmvp.mvp.view.impl;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.pnikosis.materialishprogress.ProgressWheel;
 import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
-
-import me.drakeet.materialdialog.MaterialDialog;
+import com.shirun.androidmvp.mvp.view.MvpView;
 
 /**
  * Created by ying on 2016/6/2.
  */
-public abstract class MvpBaseActivity<M,P extends MvpPresenter> extends AppCompatActivity implements MvpImplView<M> {
+public abstract class MvpBaseActivity<M,P extends MvpPresenter> extends AppCompatActivity implements MvpView {
 
     private P presenter;
 

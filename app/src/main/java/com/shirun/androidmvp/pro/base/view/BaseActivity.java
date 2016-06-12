@@ -16,7 +16,6 @@ public class BaseActivity<M, P extends MvpPresenter> extends MvpBaseActivity<M, 
 
     private MaterialDialog dialog;
 
-    @Override
     public void showLoading(boolean isShow) {
 
         if (isShow) {
@@ -50,13 +49,4 @@ public class BaseActivity<M, P extends MvpPresenter> extends MvpBaseActivity<M, 
     }
 
 
-    @Override
-    public void showData(M data) {
-
-    }
-
-    @Override
-    public void showError(Exception e) {
-
-    }
 }

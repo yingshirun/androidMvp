@@ -26,6 +26,10 @@ public abstract class MvpBasePresenter<V extends MvpView,M extends MvpModel> imp
         this.view = view;
     }
 
+    public V getView() {
+        return view;
+    }
+
     @Override
     public void destroy() {
         view = null;

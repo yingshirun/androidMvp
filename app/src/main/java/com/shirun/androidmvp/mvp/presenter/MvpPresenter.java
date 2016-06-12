@@ -9,6 +9,7 @@ import com.shirun.androidmvp.mvp.view.MvpView;
 public interface MvpPresenter<V extends MvpView,M extends MvpModel> {
     void attach(V view);
     void destroy();
+    V getView();
 
     M bindModel();
     M getModel();
