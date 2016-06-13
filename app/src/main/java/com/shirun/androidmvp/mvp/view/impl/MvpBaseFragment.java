@@ -33,4 +33,11 @@ public abstract class MvpBaseFragment<M,P extends MvpPresenter> extends Fragment
         return presenter;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(presenter != null){
+            presenter.destroy();
+        }
+    }
 }

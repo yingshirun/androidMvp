@@ -1,13 +1,17 @@
 package com.shirun.androidmvp.pro.base.view;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pnikosis.materialishprogress.ProgressWheel;
 import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
 import com.shirun.androidmvp.mvp.view.impl.MvpBaseFragment;
+
+import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * Created by ying on 2016/6/2.
@@ -28,6 +32,34 @@ public abstract class BaseFragment<P extends MvpPresenter> extends MvpBaseFragme
             parent.removeView(view);
         }
         return view;
+    }
+
+    private MaterialDialog dialog;
+
+    public void showLoading(boolean isShow) {
+
+        if (isShow) {
+            if (dialog == null) {
+                ProgressWheel progressWheel = new ProgressWheel(getActivity());
+                progressWheel.setBarColor(Color.BLUE);
+                dialog = new MaterialDialog(getActivity());
+                dialog.setContentView(progressWheel);
+            }
+            dialog.show();
+        } else {
+            if (dialog != null) {
+                dialog.dismiss();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if( dialog != null){
+            dialog.dismiss();
+            dialog = null;
+        }
     }
 
     @Override

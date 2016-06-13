@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     }
 
     private void initTabHost() {
-        MyFragmentTabHost fragmentTabHost = (MyFragmentTabHost) findViewById(android.R.id.tabhost);
+        FragmentTabHost fragmentTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+//        MyFragmentTabHost fragmentTabHost = (MyFragmentTabHost) findViewById(android.R.id.tabhost);
         fragmentTabHost.setup(this,getSupportFragmentManager(),android.R.id.tabcontent);
         fragmentTabHost.getTabWidget().setDividerDrawable(null);
 

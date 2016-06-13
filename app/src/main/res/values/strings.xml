@@ -6,4 +6,15 @@
     <string name="main_newpost_text">新帖</string>
     <string name="main_attention_text">关注</string>
 
+
+    <array name="essence_video_tab">
+        <item>全部@y@0</item>
+        <item>视频@y@1</item>
+        <item>声音@y@2</item>
+        <item>图片@y@3</item>
+        <item>段子@y@4</item>
+        <item>广告@y@5</item>
+        <item>剧情@y@6</item>
+    </array>
+
 </resources>
