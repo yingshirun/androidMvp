@@ -1,7 +1,5 @@
 package com.shirun.androidmvp.pro.essence.view;
 
-import android.view.View;
-
 import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
 import com.shirun.androidmvp.pro.base.view.BaseFragment;
 
@@ -11,6 +9,7 @@ import com.shirun.androidmvp.pro.base.view.BaseFragment;
 public abstract class EssenceContentFragment<P extends MvpPresenter> extends BaseFragment<P> {
     private int mType;
     private String mTitle;
+
 
     public int getType() {
         return mType;

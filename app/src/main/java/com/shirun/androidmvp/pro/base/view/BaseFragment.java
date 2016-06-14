@@ -3,6 +3,7 @@ package com.shirun.androidmvp.pro.base.view;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import me.drakeet.materialdialog.MaterialDialog;
 public abstract class BaseFragment<P extends MvpPresenter> extends MvpBaseFragment {
 
     private View view;
+    public  String TAG = getClass().getSimpleName();
 
     @Nullable
     @Override
@@ -26,11 +28,14 @@ public abstract class BaseFragment<P extends MvpPresenter> extends MvpBaseFragme
         if(view == null){
             view = inflater.inflate(getLayoutId(),container,false);
             initView(view);
+            Log.e(TAG,"onCreateView __ initView");
         }
         ViewGroup parent = (ViewGroup) view.getParent();
         if(parent != null){
             parent.removeView(view);
+            Log.e(TAG,"onCreateView __ removeView");
         }
+        Log.e(TAG,"onCreateView end");
         return view;
     }
 

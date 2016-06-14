@@ -1,7 +1,10 @@
 package com.shirun.androidmvp.pro.essence.view;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -18,7 +21,6 @@ import java.util.Arrays;
  * Created by ying on 2016/6/12.
  */
 public class EssenceFragment extends BaseFragment  {
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ArrayList<EssenceContentFragment> fragmentLists;
@@ -28,10 +30,6 @@ public class EssenceFragment extends BaseFragment  {
         initToolBar(view);
         tabLayout = (TabLayout)  view.findViewById(R.id.tab_essence);
         viewPager = (ViewPager) view.findViewById(R.id.vp_essence);
-    }
-
-    @Override
-    protected void initData() {
         String[] titles = getResources().getStringArray(R.array.essence_video_tab);
         fragmentLists = new ArrayList<>();
         fragmentLists.add(new EssenceAllFragment());
@@ -44,6 +42,11 @@ public class EssenceFragment extends BaseFragment  {
         EssenceAdapter essenceAdapter = new EssenceAdapter(getFragmentManager(), fragmentLists, Arrays.asList(titles));
         viewPager.setAdapter(essenceAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void initToolBar(View view) {
