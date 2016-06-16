@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.shirun.androidmvp.R;
 import com.shirun.androidmvp.bean.EssecneListBean;
+import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
+import com.shirun.androidmvp.pro.essence.presenter.EssenceAllPresenter;
 import com.shirun.androidmvp.pro.essence.view.adapter.EssenceAllAdapter;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
  * Created by ying on 2016/6/13.
  * 全部
  */
-public class EssenceAllFragment extends EssenceContentFragment {
+public class EssenceAllFragment extends EssenceContentFragment<EssenceAllPresenter> implements IEssenceAllView {
 
     private RecyclerView recyclerView;
     private EssenceAllAdapter adapter;
@@ -32,7 +34,33 @@ public class EssenceAllFragment extends EssenceContentFragment {
     }
 
     @Override
+    protected EssenceAllPresenter bindPresenter() {
+        return new EssenceAllPresenter(getContext());
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_essence_all;
+    }
+
+    @Override
+    public void showDialog() {
+
+    }
+
+    @Override
+    public void hideDialog() {
+
+    }
+
+    @Override
+    public void loadData(EssecneListBean data) {
+
+    }
+
+
+    @Override
+    public void error(Exception e) {
+
     }
 }
