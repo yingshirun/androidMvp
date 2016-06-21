@@ -1,7 +1,14 @@
 package com.shirun.androidmvp.http.utils;
 
 import com.shirun.androidmvp.http.IHttpRequestParam;
+import com.shirun.androidmvp.http.impl.HttpRequestParam;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,14 +16,81 @@ import java.util.Set;
  * Created by ying on 2016/6/16.
  */
 public class HttpUtils {
+    private static final int CONNECT_TIME_OUT = 1000 * 5;
+    private static final int READ_TIME_OUT = 1000 * 5;
 
-    public static String psot(String url, IHttpRequestParam<Map<String,Object>,Map<String,Object>> requestParam){
+    public static String get(String urlAddress,Map<String,Object> headMap){
+        if(headMap == null){
+            headMap = new HashMap<>();
+        }
+        try {
+            HttpURLConnection connect = getConnect(urlAddress, headMap,"GET");
+            connect.connect();
+            int code = connect.getResponseCode();
+            if(code == 200){
+                byte[] bytes = StreamTool.inputStream(connect.getInputStream());
+                return new String(bytes);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    public static String get(String urlAddress){
+        return get(urlAddress,null);
+    }
+
+    /**
+     *
+     * @param urlAddress    请求地址
+     * @param requestParam  请求参数  包含请求头参数
+     * @return
+     */
+    public static String post(String urlAddress, IHttpRequestParam<Map<String, Object>, Map<String, Object>> requestParam) {
         Map<String, Object> requestParam1 = requestParam.getRequestParam();
         String paramToString = paramToString(requestParam1);
+        try {
+            HttpURLConnection connection = getConnect(urlAddress, requestParam.getHeaderParam(), "POST");
+            connection.connect();
+            StreamTool.outputStream(connection.getOutputStream(),paramToString);
+            int code = connection.getResponseCode();
+            if(code == 200){
+                byte[] bytes = StreamTool.inputStream(connection.getInputStream());
+                return new String(bytes);
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "";
     }
 
-    private static String paramToString(Map<String,Object> map){
+    /**
+     *
+     * @param urlAddress 请求地址
+     * @param headMap       请求头信息
+     * @param requestMethod 请求方式
+     * @return
+     * @throws IOException
+     */
+    private static HttpURLConnection getConnect(String urlAddress, Map<String, Object> headMap, String requestMethod) throws IOException {
+        URL url = new URL(urlAddress);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod(requestMethod);
+        connection.setConnectTimeout(CONNECT_TIME_OUT);
+        connection.setReadTimeout(READ_TIME_OUT);
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+        Set<String> set = headMap.keySet();
+        for (String s : set) {
+            connection.setRequestProperty(s, headMap.get(s).toString());
+        }
+        connection.setRequestProperty("Charset", "UTF-8");
+        return connection;
+    }
+
+    private static String paramToString(Map<String, Object> map) {
         StringBuilder sb = new StringBuilder();
         Set<String> set = map.keySet();
         for (String s : set) {

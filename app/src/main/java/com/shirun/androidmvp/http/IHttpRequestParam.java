@@ -9,11 +9,9 @@ public interface IHttpRequestParam<T,H> {
     public int size();
     public T getRequestParam();
 
-
     public H getHeaderParam();
     public void putHeader(String key, Object value);
     public Object getHeader(String key);
     public int headerSize();
-
 
 }
