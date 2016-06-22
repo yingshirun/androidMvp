@@ -11,7 +11,7 @@ import com.shirun.androidmvp.http.impl.HttpCommand;
  * Created by ying on 2016/6/21.
  */
 public class HttpTask {
-    static IHttpThreadExecutor executor;
+    static IHttpThreadExecutor executor = ThreadPoolUtils.getInstance();
     public static void requestPost(String url, IHttpRequestParam requestParam, final OnHttpResultListener listener){
         Handler handler = new Handler(){
             @Override
