@@ -31,6 +31,11 @@ public abstract class MvpBasePresenter<V extends MvpView,M extends MvpModel> imp
     }
 
     @Override
+    public boolean isDestroy() {
+        return view == null;
+    }
+
+    @Override
     public void destroy() {
         view = null;
     }

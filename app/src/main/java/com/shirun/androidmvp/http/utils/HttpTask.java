@@ -24,7 +24,7 @@ public class HttpTask {
         //添加到线程池中 线程池待实现
         executor.addTask(httpRunnable);
     }
-    interface OnHttpResultListener{
+    public interface OnHttpResultListener{
         void onResult(String result);
     }
 }

@@ -11,7 +11,7 @@ import com.shirun.androidmvp.mvp.view.MvpView;
 /**
  * Created by ying on 2016/6/2.
  */
-public abstract class MvpBaseFragment<M,P extends MvpPresenter> extends Fragment implements MvpView {
+public abstract class MvpBaseFragment<P extends MvpPresenter> extends Fragment implements MvpView {
 
     private P presenter;
 
@@ -24,14 +24,15 @@ public abstract class MvpBaseFragment<M,P extends MvpPresenter> extends Fragment
         }
 
     }
-    protected abstract P bindPresenter();
-
-    public P getPresenter() {
+    protected P getPresenter() {
         if(presenter == null){
             throw new NullPointerException("请先绑定presenter在使用");
         }
         return presenter;
     }
+    protected abstract P bindPresenter();
+
+
 
     @Override
     public void onDestroyView() {

@@ -34,6 +34,12 @@ public class EssenceAllFragment extends EssenceContentFragment<EssenceAllPresent
     }
 
     @Override
+    protected void initData() {
+
+    }
+
+
+    @Override
     protected EssenceAllPresenter bindPresenter() {
         return new EssenceAllPresenter(getContext());
     }
