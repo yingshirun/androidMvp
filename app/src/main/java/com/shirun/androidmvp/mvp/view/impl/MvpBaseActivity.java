@@ -14,8 +14,6 @@ public abstract class MvpBaseActivity<M,P extends MvpPresenter> extends AppCompa
 
     private P presenter;
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

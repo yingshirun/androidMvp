@@ -17,7 +17,7 @@ import java.util.List;
  * Created by ying on 2016/6/13.
  * 全部
  */
-public class EssenceAllFragment extends EssenceContentFragment<EssenceAllPresenter> implements IEssenceAllView {
+public class EssenceAllFragment extends EssenceContentFragment<EssenceAllPresenter> implements IEssenceAllView{
 
     private RecyclerView recyclerView;
     private EssenceAllAdapter adapter;
@@ -35,7 +35,7 @@ public class EssenceAllFragment extends EssenceContentFragment<EssenceAllPresent
 
     @Override
     protected void initData() {
-
+        getPresenter().getAllEssence(getType());
     }
 
 
@@ -51,17 +51,17 @@ public class EssenceAllFragment extends EssenceContentFragment<EssenceAllPresent
 
     @Override
     public void showDialog() {
-
+        showLoading(true);
     }
 
     @Override
     public void hideDialog() {
-
+        showLoading(false);
     }
 
     @Override
-    public void loadData(EssecneListBean data) {
-
+    public void loadData(List<EssecneListBean.ListBean> data) {
+        adapter.addData(data);
     }
 
 

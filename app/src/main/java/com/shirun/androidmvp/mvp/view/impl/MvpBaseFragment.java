@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
+import com.shirun.androidmvp.mvp.presenter.impl.MvpBasePresenter;
 import com.shirun.androidmvp.mvp.view.MvpView;
 
 /**

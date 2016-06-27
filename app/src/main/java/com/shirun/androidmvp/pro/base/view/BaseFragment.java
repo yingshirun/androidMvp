@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.pnikosis.materialishprogress.ProgressWheel;
 import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
+import com.shirun.androidmvp.mvp.presenter.impl.MvpBasePresenter;
 import com.shirun.androidmvp.mvp.view.impl.MvpBaseFragment;
 
 import me.drakeet.materialdialog.MaterialDialog;
@@ -17,7 +18,7 @@ import me.drakeet.materialdialog.MaterialDialog;
 /**
  * Created by ying on 2016/6/2.
  */
-public abstract class BaseFragment<P extends MvpPresenter> extends MvpBaseFragment {
+public abstract class BaseFragment<P extends MvpPresenter> extends MvpBaseFragment<P> {
 
     private View view;
     public  String TAG = getClass().getSimpleName();

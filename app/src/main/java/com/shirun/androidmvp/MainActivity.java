@@ -131,7 +131,4 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
             return tabView;
         }
     }
-
-
-
 }

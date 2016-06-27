@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.shirun.androidmvp.R;
 import com.shirun.androidmvp.bean.EssecneListBean;
+import com.shirun.androidmvp.pro.base.view.GlideCircleTransform;
 
 import java.util.List;
 
@@ -27,21 +28,37 @@ public class EssenceAllAdapter extends RecyclerView.Adapter<EssenceAllAdapter.My
         this.context = context;
     }
 
+    public void addData( List<EssecneListBean.ListBean> list){
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+    public void setData( List<EssecneListBean.ListBean> list){
+        this.list.clear();
+        addData(list);
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.item_essence_video_layout, parent, false);
-
         return new MyViewHolder(inflate);
     }
+
+
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         EssecneListBean.ListBean listBean = list.get(position);
-        Glide.with(context)
-                .load(listBean.getImage1())
-                .into(holder.iv_video);
+        if(listBean.getImage1() == null || listBean.getImage1().length() ==0){
+            holder.iv_video.setVisibility(View.GONE);
+        }else{
+            holder.iv_video.setVisibility(View.VISIBLE);
+            Glide.with(context)
+                    .load(listBean.getImage1())
+                    .into(holder.iv_video);
+        }
         Glide.with(context)
                 .load(listBean.getProfile_image())
+                .transform(new GlideCircleTransform(context))
                 .into(holder.iv_header);
         holder.tv_comment.setText(listBean.getComment());
         holder.tv_content.setText(listBean.getText());

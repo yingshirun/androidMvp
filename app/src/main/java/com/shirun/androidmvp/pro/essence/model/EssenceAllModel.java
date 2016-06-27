@@ -25,6 +25,9 @@ public class EssenceAllModel extends BaseModel {
         if(!TextUtils.isEmpty(maxtime)){
             param.put("maxtime",maxtime);
         }
+        if(type!=-1){
+            param.put("type",type);
+        }
         HttpTask.requestPost(getUrl(),param,callback);
     }
 }

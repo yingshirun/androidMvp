@@ -1,10 +1,10 @@
 package com.shirun.androidmvp.http.utils;
 
+import android.util.Log;
+
 import com.shirun.androidmvp.http.IHttpRequestParam;
-import com.shirun.androidmvp.http.impl.HttpRequestParam;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,8 +16,8 @@ import java.util.Set;
  * Created by ying on 2016/6/16.
  */
 public class HttpUtils {
-    private static final int CONNECT_TIME_OUT = 1000 * 5;
-    private static final int READ_TIME_OUT = 1000 * 5;
+    private static final int CONNECT_TIME_OUT = 1000 * 20;
+    private static final int READ_TIME_OUT = 1000 * 20;
 
     public static String get(String urlAddress,Map<String,Object> headMap){
         if(headMap == null){
@@ -29,6 +29,18 @@ public class HttpUtils {
             int code = connect.getResponseCode();
             if(code == 200){
                 byte[] bytes = StreamTool.inputStream(connect.getInputStream());
+
+//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connect.getInputStream(),"UTF-8"));
+////                BufferedInputStream bis = new BufferedInputStream(connect.getInputStream());
+//                StringBuffer sb = new StringBuffer();
+////                byte[] buf = new bute
+//                String line = null;
+//                while ( (line = bufferedReader.readLine())!=null){
+//                    sb.append(line);
+//                }
+//                bufferedReader.close();
+//                return sb.toString();
+
                 return new String(bytes);
             }
         } catch (IOException e) {
@@ -49,14 +61,14 @@ public class HttpUtils {
     public static String post(String urlAddress, IHttpRequestParam<Map<String, Object>, Map<String, Object>> requestParam) {
         Map<String, Object> requestParam1 = requestParam.getRequestParam();
         String paramToString = paramToString(requestParam1);
+        Log.d(HttpUtils.class.getSimpleName(),"请求接口："+urlAddress+"  参数:"+paramToString);
         try {
             HttpURLConnection connection = getConnect(urlAddress, requestParam.getHeaderParam(), "POST");
             connection.connect();
             StreamTool.outputStream(connection.getOutputStream(),paramToString);
             int code = connection.getResponseCode();
             if(code == 200){
-                byte[] bytes = StreamTool.inputStream(connection.getInputStream());
-                return new String(bytes);
+                return StreamTool.inputStreamReader(connection.getInputStream());
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

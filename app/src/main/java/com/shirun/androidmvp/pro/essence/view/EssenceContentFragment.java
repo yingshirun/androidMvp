@@ -1,6 +1,7 @@
 package com.shirun.androidmvp.pro.essence.view;
 
 import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
+import com.shirun.androidmvp.mvp.presenter.impl.MvpBasePresenter;
 import com.shirun.androidmvp.pro.base.view.BaseFragment;
 
 /**

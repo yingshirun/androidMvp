@@ -15,7 +15,7 @@ public abstract class MvpBasePresenter<V extends MvpView,M extends MvpModel> imp
         this.model = bindModel();
     }
     public abstract M bindModel() ;
-    public M getModel(){
+    protected M getModel(){
         if(model == null){
             throw new NullPointerException("model没有绑定 不能使用");
         }
@@ -26,12 +26,12 @@ public abstract class MvpBasePresenter<V extends MvpView,M extends MvpModel> imp
         this.view = view;
     }
 
-    public V getView() {
+    protected V getView() {
         return view;
     }
 
-    @Override
-    public boolean isDestroy() {
+
+    protected boolean isDestroy() {
         return view == null;
     }
 

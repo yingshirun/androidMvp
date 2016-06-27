@@ -9,8 +9,8 @@ import com.shirun.androidmvp.mvp.view.MvpView;
 public interface MvpPresenter<V extends MvpView,M extends MvpModel> {
     void attach(V view);
     void destroy();
-    V getView();
-    boolean isDestroy();
+//    V getView();
+//    boolean isDestroy();
     M bindModel();
-    M getModel();
+//    M getModel();
 }

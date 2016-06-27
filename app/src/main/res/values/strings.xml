@@ -8,7 +8,7 @@
 
 
     <array name="essence_video_tab">
-        <item>全部@y@0</item>
+        <item>全部@y@1</item>
         <item>视频@y@1</item>
         <item>声音@y@2</item>
         <item>图片@y@3</item>
