@@ -19,6 +19,7 @@ import java.util.List;
  * Created by ying on 2016/6/15.
  */
 public class EssenceAllAdapter extends RecyclerView.Adapter<EssenceAllAdapter.MyViewHolder> {
+//public class EssenceAllAdapter extends BaseRecyclerAdapter<EssenceAllAdapter.MyViewHolder> {
 
     List<EssecneListBean.ListBean> list;
     private Context context;
@@ -28,14 +29,21 @@ public class EssenceAllAdapter extends RecyclerView.Adapter<EssenceAllAdapter.My
         this.context = context;
     }
 
-    public void addData( List<EssecneListBean.ListBean> list){
+    public void addData(List<EssecneListBean.ListBean> list) {
         this.list.addAll(list);
         notifyDataSetChanged();
     }
-    public void setData( List<EssecneListBean.ListBean> list){
+
+    public void setData(List<EssecneListBean.ListBean> list) {
         this.list.clear();
         addData(list);
     }
+
+
+//    @Override
+//    public MyViewHolder getViewHolder(View view) {
+//        return new MyViewHolder(view,false);
+//    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,14 +51,12 @@ public class EssenceAllAdapter extends RecyclerView.Adapter<EssenceAllAdapter.My
         return new MyViewHolder(inflate);
     }
 
-
-
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         EssecneListBean.ListBean listBean = list.get(position);
-        if(listBean.getImage1() == null || listBean.getImage1().length() ==0){
+        if (listBean.getImage1() == null || listBean.getImage1().length() == 0) {
             holder.iv_video.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.iv_video.setVisibility(View.VISIBLE);
             Glide.with(context)
                     .load(listBean.getImage1())
@@ -73,7 +79,9 @@ public class EssenceAllAdapter extends RecyclerView.Adapter<EssenceAllAdapter.My
     public int getItemCount() {
         return list.size();
     }
-    static class MyViewHolder extends RecyclerView.ViewHolder{
+
+
+    static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_header;
         ImageView iv_video;
         TextView tv_name;

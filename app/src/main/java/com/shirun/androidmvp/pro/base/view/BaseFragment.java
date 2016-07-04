@@ -8,12 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pnikosis.materialishprogress.ProgressWheel;
 import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
-import com.shirun.androidmvp.mvp.presenter.impl.MvpBasePresenter;
 import com.shirun.androidmvp.mvp.view.impl.MvpBaseFragment;
 
-import me.drakeet.materialdialog.MaterialDialog;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by ying on 2016/6/2.
@@ -40,21 +38,19 @@ public abstract class BaseFragment<P extends MvpPresenter> extends MvpBaseFragme
         return view;
     }
 
-    private MaterialDialog dialog;
-
+    SweetAlertDialog pDialog;
     public void showLoading(boolean isShow) {
-
         if (isShow) {
-            if (dialog == null) {
-                ProgressWheel progressWheel = new ProgressWheel(getActivity());
-                progressWheel.setBarColor(Color.BLUE);
-                dialog = new MaterialDialog(getActivity());
-                dialog.setContentView(progressWheel);
+            if (pDialog == null) {
+                pDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Loading...");
+                pDialog.setCancelable(false);
             }
-            dialog.show();
+            pDialog.show();
         } else {
-            if (dialog != null) {
-                dialog.dismiss();
+            if (pDialog != null ) {
+                pDialog.dismiss();
             }
         }
     }
@@ -62,9 +58,9 @@ public abstract class BaseFragment<P extends MvpPresenter> extends MvpBaseFragme
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if( dialog != null){
-            dialog.dismiss();
-            dialog = null;
+        if( pDialog != null){
+            pDialog.dismiss();
+            pDialog = null;
         }
     }
 

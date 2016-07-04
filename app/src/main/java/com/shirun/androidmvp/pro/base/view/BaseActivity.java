@@ -2,11 +2,10 @@ package com.shirun.androidmvp.pro.base.view;
 
 import android.graphics.Color;
 
-import com.pnikosis.materialishprogress.ProgressWheel;
 import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
 import com.shirun.androidmvp.mvp.view.impl.MvpBaseActivity;
 
-import me.drakeet.materialdialog.MaterialDialog;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by ying on 2016/6/2.
@@ -14,32 +13,30 @@ import me.drakeet.materialdialog.MaterialDialog;
 public class BaseActivity<M, P extends MvpPresenter> extends MvpBaseActivity<M, P> {
 
 
-    private MaterialDialog dialog;
-
+    SweetAlertDialog pDialog;
     public void showLoading(boolean isShow) {
-
         if (isShow) {
-            if (dialog == null) {
-                ProgressWheel progressWheel = new ProgressWheel(this);
-                progressWheel.setBarColor(Color.BLUE);
-                dialog = new MaterialDialog(this);
-                dialog.setContentView(progressWheel);
+            if (pDialog == null) {
+                pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Loading...");
+                pDialog.setCancelable(false);
             }
-            dialog.show();
+            pDialog.show();
         } else {
-            if (dialog != null) {
-                dialog.dismiss();
+            if (pDialog != null ) {
+                pDialog.dismiss();
             }
         }
-
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dialog != null) {
-            dialog.dismiss();
-            dialog = null;
+        if (pDialog != null) {
+            pDialog.dismiss();
+            pDialog = null;
         }
     }
 

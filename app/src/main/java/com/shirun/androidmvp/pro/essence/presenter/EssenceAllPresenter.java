@@ -25,7 +25,10 @@ public class EssenceAllPresenter extends BasePresenter<IEssenceAllView,EssenceAl
 
     }
 
-    public void getAllEssence(int type){
+    public void getAllEssence(int type, final boolean isRefresh){
+        if(isRefresh){
+            maxTime = "";
+        }
         getView().showDialog();
         getModel().getAllEssence(maxTime, type, new HttpTask.OnHttpResultListener() {
             @Override
@@ -42,7 +45,7 @@ public class EssenceAllPresenter extends BasePresenter<IEssenceAllView,EssenceAl
                 }
                 EssecneListBean bean = JSONObject.parseObject(result, EssecneListBean.class);
                 maxTime = bean.getInfo().getMaxtime();
-                getView().loadData(bean.getList());
+                getView().loadData(bean.getList(),isRefresh);
             }
         });
     }

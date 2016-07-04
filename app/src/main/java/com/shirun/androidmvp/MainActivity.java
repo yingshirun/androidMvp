@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.shirun.androidmvp.pro.attention.AttentionFragment;
 import com.shirun.androidmvp.pro.essence.view.EssenceFragment;
 import com.shirun.androidmvp.pro.mine.view.MineFragment;
 import com.shirun.androidmvp.pro.newpost.view.NewpostFragment;
+import com.shirun.androidmvp.utils.Dip2px;
 
 import java.util.ArrayList;
 
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
                     .setBackgroundColor(getResources().getColor(R.color.main_bottom_bg));
             fragmentTabHost.setOnTabChangedListener(this);
         }
-
+        tabItems.get(0).setChecked(true);
 
     }
 
@@ -69,8 +71,18 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
     public void onTabChanged(String tabId) {
         if(TextUtils.isEmpty(tabId)){
             Log.e(TAG,"发布被点击了");
+            Toast.makeText(MainActivity.this, "发布被点击了", Toast.LENGTH_SHORT).show();
+            return;
         }else{
             Log.e(TAG,tabId+"被点击了");
+        }
+        for (int i = 0; i < tabItems.size(); i++) {
+            TabItem tabItem = tabItems.get(i);
+            if(tabId.equals(tabItem.getTitleString())){
+                tabItem.setChecked(true);
+            }else{
+                tabItem.setChecked(false);
+            }
         }
     }
 
@@ -114,7 +126,10 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
             }
             return titleString;
         }
-
+        private void setImageWH(float dpW,float dpH){
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Dip2px.dip2px(getBaseContext(),dpW), Dip2px.dip2px(getBaseContext(),dpH));
+            imageView.setLayoutParams(layoutParams);
+        }
         public View getTabView() {
             if(tabView == null){
                 tabView = getLayoutInflater().inflate(R.layout.view_tab_indicator,null);
@@ -124,11 +139,30 @@ public class MainActivity extends AppCompatActivity implements TabHost.OnTabChan
             imageView.setImageResource(imageNormal);
             if(title == 0){
                 textView.setVisibility(View.GONE);
+                setImageWH(35,35);
             }else{
+                setImageWH(26,26);
                 textView.setVisibility(View.VISIBLE);
                 textView.setText(getTitleString());
             }
             return tabView;
+        }
+        public void setChecked(boolean isCheck){
+            if(isCheck){
+                if(imageView != null){
+                    imageView.setImageResource(imagePress);
+                }
+                if(textView != null && title != 0){
+                    textView.setTextColor(getResources().getColor(R.color.main_bottom_text_press));
+                }
+            }else{
+                if(imageView != null){
+                    imageView.setImageResource(imageNormal);
+                }
+                if(textView != null && title != 0){
+                    textView.setTextColor(getResources().getColor(R.color.main_bottom_text_normal));
+                }
+            }
         }
     }
 }

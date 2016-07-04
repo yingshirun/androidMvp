@@ -1,12 +1,15 @@
 package com.shirun.androidmvp.pro.essence.view;
 
+import android.app.ProgressDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.shirun.androidmvp.R;
 import com.shirun.androidmvp.bean.EssecneListBean;
-import com.shirun.androidmvp.mvp.presenter.MvpPresenter;
 import com.shirun.androidmvp.pro.essence.presenter.EssenceAllPresenter;
 import com.shirun.androidmvp.pro.essence.view.adapter.EssenceAllAdapter;
 
@@ -22,22 +25,40 @@ public class EssenceAllFragment extends EssenceContentFragment<EssenceAllPresent
     private RecyclerView recyclerView;
     private EssenceAllAdapter adapter;
     private List<EssecneListBean.ListBean> list;
+    private SwipyRefreshLayout refreshView;
 
     @Override
     protected void initView(View view) {
+        refreshView = (SwipyRefreshLayout) view.findViewById(R.id.swipyrefreshlayout);
         recyclerView = (RecyclerView) view.findViewById(R.id.essence_all_recyclerview);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         list = new ArrayList<>();
         adapter = new EssenceAllAdapter(list,getActivity());
         recyclerView.setAdapter(adapter);
+        refreshView.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                if(direction == SwipyRefreshLayoutDirection.TOP ){
+                    //下拉刷新
+                    loadData(true);
+                }else{
+                    loadData(false);
+                }
+            }
+        });
+
     }
 
     @Override
     protected void initData() {
-        getPresenter().getAllEssence(getType());
+        loadData(false);
     }
 
+    private void loadData(boolean isRefresh){
+        getPresenter().getAllEssence(getType(),isRefresh);
+    }
 
     @Override
     protected EssenceAllPresenter bindPresenter() {
@@ -60,8 +81,14 @@ public class EssenceAllFragment extends EssenceContentFragment<EssenceAllPresent
     }
 
     @Override
-    public void loadData(List<EssecneListBean.ListBean> data) {
-        adapter.addData(data);
+    public void loadData(List<EssecneListBean.ListBean> data,boolean isDownRefresh) {
+        refreshView.setRefreshing(false);
+        if(isDownRefresh){
+            adapter.setData(data);
+        }else{
+            adapter.addData(data);
+        }
+        Log.d("count","count:"+adapter.getItemCount());
     }
 
 
